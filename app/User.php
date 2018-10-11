@@ -2,9 +2,11 @@
 
 namespace App;
 
+use App\Model\Role;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -27,4 +29,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function role () {
+        $user = Role::select('name')
+            ->where('id',Auth::user()->role)
+            ->first();
+        return $user->name;
+    }
 }
