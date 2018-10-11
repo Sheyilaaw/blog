@@ -11,6 +11,24 @@
 |
 */
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('/admin', function () {
+        return 'admin only';
+    });
+});
+
+Route::group(['middleware' => 'manager'], function () {
+    Route::get('/manager', function () {
+        return ' manager only';
+    });
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+
