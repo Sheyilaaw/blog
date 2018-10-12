@@ -16,11 +16,11 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->role() == 'admin') // is an admin
+        if(Auth::user()->role() == 'admin')
         {
             return $next($request); // pass the admin
         }
 
-        return redirect('/'); // not admin. redirect where ever you like
+        return redirect('/home');
     }
 }

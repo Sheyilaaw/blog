@@ -21,6 +21,6 @@ class ManagerMiddleware
             return $next($request);
         }
 
-        return redirect('/');
+        return redirect('/home');
     }
 }
