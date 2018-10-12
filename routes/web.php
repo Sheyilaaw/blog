@@ -15,16 +15,18 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => 'admin'], function () {
-    Route::get('/admin', function () {
-        return 'admin only';
-    });
+Route::resource('post', 'PostController')->only([
+    'create','index','store'
+]);
+
+Route::group(['middleware' => ['admin', 'manager']], function () {
+    Route::resource('post', 'PostController')->except([
+        'create','index','store'
+    ]);
 });
 
-Route::group(['middleware' => 'manager'], function () {
-    Route::get('/manager', function () {
-        return ' manager only';
-    });
+Route::group(['middleware' => 'admin'], function () {
+
 });
 
 Route::get('/', function () {
