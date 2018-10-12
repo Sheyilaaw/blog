@@ -8,13 +8,20 @@
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                    @foreach($posts as $post)
+                        <div class="col-md-12">
+                            <div class="jumbotron">
+                                <h2 class="display-3">{{$post->title}}</h2>
+                                <p class="lead">
+                                    {{$post->body}}
+                                </p>
+                                <p class="lead">
+                                    <a class="btn btn-primary btn-lg" href="/post/{{$post->id}}" role="button">Learn more</a>
+                                </p>
+                            </div>
                         </div>
-                    @endif
+                    @endforeach
 
-                    You are logged in!
                 </div>
             </div>
         </div>
