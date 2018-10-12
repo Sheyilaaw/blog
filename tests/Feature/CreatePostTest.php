@@ -1,0 +1,79 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Session;
+use Tests\TestCase;
+
+class CreatePostTest extends TestCase
+{
+    use RefreshDatabase;
+
+    protected function setUp()
+    {
+        parent::setUp();
+        Session::start();
+    }
+
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+
+    public function testUserCanCreatePost(){
+        $user = factory(User::class)->create([
+            'email' => 'oluwaseyi@example.com',
+            'password' => bcrypt('testpass123')
+        ]);
+
+        $this->actingAs($user)
+            ->visit(route('post.create'))
+            ->type('Title Examplee', 'title')
+            ->type('Test Body goes here', 'body')
+            ->press('Post')
+            ->see('Post Added Successfully')
+            ->seePageIs('/home');
+    }
+
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+
+    public function testUserCanNotCreatePostWithoutTitle(){
+        $user = factory(User::class)->create([
+            'email' => 'oluwaseyi@example.com',
+            'password' => bcrypt('testpass123')
+        ]);
+
+        $this->actingAs($user)
+            ->visit(route('post.create'))
+            ->type('Test Body goes here', 'body')
+            ->press('Post')
+            ->see(trans('validation.required', ['attribute' => 'title']));
+    }
+
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+
+    public function testUserCanNotCreatePostWithoutBody(){
+        $user = factory(User::class)->create([
+            'email' => 'oluwaseyi@example.com',
+            'password' => bcrypt('testpass123')
+        ]);
+
+        $this->actingAs($user)
+            ->visit(route('post.create'))
+            ->type('Test Title', 'title')
+            ->press('Post')
+            ->see(trans('validation.required', ['attribute' => 'body']));
+    }
+
+}
