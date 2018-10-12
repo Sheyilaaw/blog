@@ -51,6 +51,21 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Users <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('user.create') }}">
+                                        {{ __('Add User') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('user.index') }}">
+                                        {{ __('View Users') }}
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     Posts <span class="caret"></span>
                                 </a>
 
