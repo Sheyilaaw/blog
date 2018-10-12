@@ -30,3 +30,13 @@ $factory->define(App\Model\Role::class, function (Faker $faker) {
         'description' => $faker->text(15),
     ];
 });
+
+$factory->define(App\Model\Post::class, function (Faker $faker) {
+    return [
+        'id' => $faker->unique()->randomDigit,
+        'user_id' => $faker->unique()->randomDigit,
+        'title' => $faker->name,
+        'body' => $faker->text(255),
+    ];
+});
+
