@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Model\Role;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Session;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
