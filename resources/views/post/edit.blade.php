@@ -10,9 +10,9 @@
                     <div class="card-body">
 
                         <form method="POST" action="{{ url('/post/update') }}">
-                            <input type="hidden" name="id" value="{{ $post['id']}}">
+                            @method('PUT')
                             @csrf
-
+                            <input type="hidden" name="id" value="{{$post['id']}}">
                             <div class="form-group row">
                                 <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
 
@@ -44,7 +44,19 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Post') }}
+                                        {{ __('Update Post') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form action="{{ route('post.destroy' , $post['id'])}}" method="POST" class="mt-1">
+                            @method('DELETE')
+                            @csrf
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-danger">
+                                        {{ __('Delete Post') }}
                                     </button>
                                 </div>
                             </div>
