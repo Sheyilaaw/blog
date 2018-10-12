@@ -45,4 +45,24 @@ class VisitSiteTest extends TestCase
         $response->assertStatus(200)->assertSee('Register');
     }
 
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testVisitCreatePostPageTest()
+    {
+        $response = $this->get('/post/create');
+
+        $response->assertStatus(200)->assertSee('Create Post');
+    }
+
+
+    public function testVisitCreateUserPageTest()
+    {
+        $response = $this->get('/user/create');
+
+        $response->assertStatus(200)->assertSee('Create User');
+    }
+
 }
