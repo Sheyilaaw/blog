@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Post;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -50,6 +51,7 @@ class PostController extends Controller
         Post::create([
             'title' => $data['title'],
             'body' => $data['body'],
+            'user_id' => Auth::user()->id
         ]);
         Session::flash('success', 'Post Added Successfully');
         return redirect()->route('home');
