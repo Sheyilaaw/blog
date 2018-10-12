@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Post;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -34,8 +37,22 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        dd($request);
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'title' => 'required|string|max:255',
+            'body' => 'required|string|'
+        ]);
+
+        if ($validator->fails()) {
+            Session::flash('errors', $validator->messages());
+            return redirect()->back()->withInput();
+        }
+        Post::create([
+            'title' => $data['title'],
+            'body' => $data['body'],
+        ]);
+        Session::flash('success', 'Post Added Successfully');
+        return redirect()->route('home');
     }
 
     /**
