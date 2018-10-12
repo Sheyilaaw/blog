@@ -17,7 +17,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::where('user_id',Auth::user()->id)->get();
+        return view('post.index',[
+            'posts' => $posts
+        ]);
     }
 
     /**
@@ -65,7 +68,10 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::where('id',$id)->get();
+        return view('post.show',[
+            'posts' => $post
+        ]);
     }
 
     /**
@@ -76,7 +82,10 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::where('id',$id)->get()->toArray();
+        return view('post.edit',[
+            'post' => array_shift($post)
+        ]);
     }
 
     /**
@@ -88,7 +97,23 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'title' => 'required|string|max:255',
+            'body' => 'required|string|'
+        ]);
+
+        if ($validator->fails()) {
+            Session::flash('errors', $validator->messages());
+            return redirect()->back()->withInput();
+        }
+        Post::where('id', $data['id'])
+            ->update([
+                'title' => $data['title'],
+                'body' => $data['body'],
+            ]);
+        Session::flash('success', 'Post Updated Successfully');
+        return redirect()->route('post.index');
     }
 
     /**
@@ -99,6 +124,11 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(is_int($id)){
+            Post::where('id', $id)->delete();
+            Session::flash('success', 'Post Deleted Successfully');
+            return redirect()->route('post.index');
+        }
+        return redirect()->back();
     }
 }
