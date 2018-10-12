@@ -16,17 +16,17 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('post', 'PostController')->only([
-    'create','index','store'
+    'create','index','store','show'
 ]);
 
 Route::group(['middleware' => ['admin', 'manager']], function () {
     Route::resource('post', 'PostController')->except([
-        'create','index','store'
+        'create','index','store','show'
     ]);
 });
 
 Route::group(['middleware' => 'admin'], function () {
-
+    Route::resource('user', 'UserController');
 });
 
 Route::get('/', function () {
