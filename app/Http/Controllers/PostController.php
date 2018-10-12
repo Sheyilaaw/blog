@@ -124,7 +124,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        if(is_int($id)){
+        if(is_int(intval($id))){
             Post::where('id', $id)->delete();
             Session::flash('success', 'Post Deleted Successfully');
             return redirect()->route('post.index');
