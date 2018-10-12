@@ -68,9 +68,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::where('id',$id)->get();
+        $post = Post::where('id',$id)->get()->toArray();
         return view('post.show',[
-            'posts' => $post
+            'post' => array_shift($post)
         ]);
     }
 
